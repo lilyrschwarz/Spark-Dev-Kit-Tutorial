@@ -1,6 +1,9 @@
 # Spark-Dev-Tutorial
 Tutorial for MachineQ Spark Dev Kit
 
+Find the official tutorial here: https://support.machineq.com/s/article/Spark-Dev-Kit-Tutorial.
+Below, find directions to get a more comprehensive sketch running.
+
 1. Assemble the kit using the ribbon cables provided to plug in the sensors. The sensors included are Grove - Temperature Sensor, Grove - Ultrasonic Ranger, Grove - Sound Sensor, and Grove - 6-Axis Accelerometer & Gyroscope. In the code provided, Make sure the green LED blinks to ensure it is receiving power.
 
 2. Open the Arduino IDE and specify the board type as Arduino Leonardo. Next, select the correct port for that board.
