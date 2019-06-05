@@ -1,14 +1,3 @@
-/*
-
--Copy over only the necessary stuff
--include screenshots of libraries
-    -cayennelpp
-    -byteconvert
-    -ultrasonic
-
-*/
-
-
 #include "CayenneLPP.h"
 #include "Ultrasonic.h"
 #include <ByteConvert.hpp>
@@ -26,7 +15,7 @@ String  set_appeui = "BADDECAFC0FFEE01"; // Put your 16 hex char here
 String  set_appkey = "BADDECAFC0FFEE01BADDECAFC0FFEE01"; // Put your 32 hex char here
 //*** <---- END LoRa parameters
 
-//Include libraries 
+//Include libraries
 #include "mQspark-v5.h"
 
 
@@ -47,7 +36,7 @@ CayenneLPP cayenneLPP(128);
 LSM6DS3 myIMU( I2C_MODE, 0x6A );  //I2C device address 0x6A
 
 void setup() {
-  
+
   Serial.begin(115200);
   sparkStart(defaultBaudRate);
   mQjoin();
@@ -58,23 +47,23 @@ void setup() {
 //Global variables
 String payload = "";
 
- 
+
 void loop() {
-  
-    //Temperature and Sounds can be added together, but Accelerometer and Gyrometer must be added individually
+
+    //These must be added individually.
     cayenneLPP.reset();
     cayenneLPP.addTemperature(0, sparkTemp(A2));
     cayenneLPP.addAnalogInput(1, sparkSound(A5));
     cayenneLPP.addAccelerometer(2, myIMU.readFloatAccelX(), myIMU.readFloatAccelY(), myIMU.readFloatAccelZ());
     cayenneLPP.addGyrometer(3, myIMU.readFloatGyroX(), myIMU.readFloatGyroY(), myIMU.readFloatGyroZ());
     cayenneLPP.addPresence(4, A0);
-  
+
     Serial.println(sparkUltrasonic(A0));
     //Convert Byte Array to String
     String arrayAsString = ByteConvert::arrayToString(cayenneLPP.getSize(),cayenneLPP.getBuffer());
 
     String payload = arrayAsString;
-    int payloadSize = payload.length()/2; 
+    int payloadSize = payload.length()/2;
 
     //send LoRa packet
     mQsend(payloadSize, payload);
